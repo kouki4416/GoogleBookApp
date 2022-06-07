@@ -3,6 +3,7 @@ package com.kouki.googlebooktest.di
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.kouki.googlebooktest.Util.Constants.BASE_URL
 import com.kouki.googlebooktest.data.remote.GoogleBookApi
+import com.kouki.googlebooktest.domain.repository.GoogleBookPagingSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +45,11 @@ object NetworkModule {
     @Singleton
     fun provideGoogleBookApi(retrofit: Retrofit): GoogleBookApi{
         return retrofit.create(GoogleBookApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGoogleBookPagingDataSource(googleBookApi: GoogleBookApi): GoogleBookPagingSource{
+        return GoogleBookPagingSource(googleBookApi)
     }
 }

@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface RemoteDataSource {
-    //fun getSearchedBooks(title:String, apiKey:String): Flow<Response<Books>>
+    fun getSearchedBooks(title:String, apiKey:String): Flow<Response<Books>>
 }

@@ -160,7 +160,10 @@ data class ImageLinks(
 	val thumbnail: String? = null,
 
 	@field:SerializedName("smallThumbnail")
-	val smallThumbnail: String? = null
+	val smallThumbnail: String? = null,
+
+	@field:SerializedName("large")
+	val large: String? = null
 ) : Parcelable
 
 @Parcelize
