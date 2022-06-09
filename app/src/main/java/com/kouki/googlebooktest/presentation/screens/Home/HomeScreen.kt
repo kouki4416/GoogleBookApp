@@ -13,7 +13,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,7 +22,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.kouki.googlebooktest.R
 import com.kouki.googlebooktest.domain.model.Items
 
@@ -53,7 +51,9 @@ fun HomeScreen(
 //            }
 //        }
 //    )
-    val items = homeViewModel.getBooks().collectAsLazyPagingItems()
+
+    homeViewModel.searchBooks("Hello World")
+    val items = homeViewModel.searchedBooks.collectAsLazyPagingItems()
     Scaffold(
         topBar = {
 
@@ -99,7 +99,7 @@ fun BookItem(
             )
         ) {
             AsyncImage(
-                model = item.volumeInfo?.imageLinks?.thumbnail!!,
+                model = item.volumeInfo?.imageLinks?.thumbnail,
                 placeholder = painterResource(id = R.drawable.ic_placeholder),
                 contentDescription = null,
                 onError = {it -> Log.d("", it.toString())}
@@ -107,7 +107,7 @@ fun BookItem(
         }
         Text(
             //text = item.volumeInfo?.title ?: "failed",
-            text = item.volumeInfo?.imageLinks?.thumbnail!!,
+            text = item.volumeInfo?.imageLinks?.thumbnail ?: "",
             color = MaterialTheme.colors.primary,
         )
     }

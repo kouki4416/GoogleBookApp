@@ -1,20 +1,22 @@
 package com.kouki.googlebooktest.domain.repository
 
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
+import androidx.paging.*
 import com.kouki.googlebooktest.data.remote.GoogleBookApi
 import com.kouki.googlebooktest.domain.model.Items
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.stream.Collectors.toList
 import javax.inject.Inject
 
-class GoogleBookPagingSource @Inject constructor(
-    private val googleBookApi: GoogleBookApi
+class SearchBooksPagingSource @Inject constructor(
+    private val googleBookApi: GoogleBookApi,
+    private val query: String
 ) : PagingSource<String, Items>() {
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Items> {
         return try {
-            val response = googleBookApi.getBooks("flower")
+            //TODO use api here
+            val response = googleBookApi.searchBooks(query)
             val listing = response.body()?.items
             LoadResult.Page(
                 listing?.toList() ?: listOf(),
@@ -29,7 +31,8 @@ class GoogleBookPagingSource @Inject constructor(
     }
 
 
+
     override fun getRefreshKey(state: PagingState<String, Items>): String? {
-        TODO("Not yet implemented")
+        return state.anchorPosition.toString()
     }
 }
