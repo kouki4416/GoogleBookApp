@@ -1,5 +1,6 @@
 package com.kouki.googlebooktest.presentation.common
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
@@ -15,9 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
+import androidx.paging.compose.itemsIndexed
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -29,85 +32,49 @@ import com.kouki.googlebooktest.ui.theme.LARGE_PADDING
 import com.kouki.googlebooktest.ui.theme.MEDIUM_PADDING
 import com.kouki.googlebooktest.ui.theme.SMALL_PADDING
 
-//@ExperimentalCoilApi
-//@Composable
-//fun ListContent(
-//    books: LazyPagingItems<Books>,
-//    navController: NavHostController
-//) {
-//
-//    Box(
-//        modifier = Modifier
-//            .height(BOOK_ITEM_HEIGHT),
-//        contentAlignment = Alignment.BottomStart
-//    ) {
-//        LazyColumn(
-//            contentPadding = PaddingValues(all = SMALL_PADDING),
-//            verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
-//        ) {
-//            items(
-//                items = books,
-//                key = { books ->
-//                    books.items
-//                }
-//            ) { items ->
-//                items?.let {
-//                    BookItem(items = it, navController =)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//@Composable
-//fun BookItem(
-//    items: Items,
-//    navController: NavHostController
-//) {
-//    Box(
-//        modifier = Modifier
-//            .height(BOOK_ITEM_HEIGHT),
-//        //TODO add clickable,
-//        contentAlignment = Alignment.BottomStart
-//    ) {
-//        Surface(
-//            shape = RoundedCornerShape(
-//                size = LARGE_PADDING
-//            )
-//        ) {
-//            // get book image using coil
-//            AsyncImage(
-//                model = ImageRequest.Builder(LocalContext.current)
-//                    .data("http://books.google.com/books/content?id=I4C7AAAAIAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api")
-//                    .crossfade(true)
-//                    .build(),
-//                placeholder = painterResource(R.drawable.ic_placeholder),
-//                contentDescription = "image",
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier.clip(CircleShape)
-//            )
-//        }
-//
-//        androidx.compose.material.Surface(
-//            modifier = Modifier
-//                .fillMaxHeight(0.4f)
-//                .fillMaxWidth(),
-//            color = Color.Black.copy(alpha = ContentAlpha.medium),
-//            shape = RoundedCornerShape(
-//                bottomStart = LARGE_PADDING,
-//                bottomEnd = LARGE_PADDING
-//            )
-//        ) {
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(all = MEDIUM_PADDING)
-//            ) {
-//                //TODO add necessary info for book
-//                Text(text = title)
-//            }
-//        }
-//
-//    }
-//
-//}
+@Composable
+fun ListContent(
+    items: LazyPagingItems<Items>,
+    navController: NavHostController
+) {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        itemsIndexed(
+            items = items
+        ) { _, post ->
+            post?.let {
+                BookItem(item = it, navController = navController)
+            }
+        }
+    }
+}
+
+@Composable
+fun BookItem(
+    item: Items,
+    navController: NavHostController
+) {
+    Log.d("",item.volumeInfo?.imageLinks?.thumbnail ?: "empty")
+    // create each post UI
+    Box(
+        modifier = Modifier
+            .height(200.dp),
+        contentAlignment = Alignment.BottomStart
+    ) {
+        Surface(
+            shape = RoundedCornerShape(
+                size = 20.dp
+            )
+        ) {
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxSize(),
+                model = item.volumeInfo?.imageLinks?.thumbnail,
+                placeholder = painterResource(id = R.drawable.ic_placeholder),
+                contentDescription = null,
+                onError = {it -> Log.d("", it.toString())}
+            )
+        }
+    }
+}

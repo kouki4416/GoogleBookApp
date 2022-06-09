@@ -1,5 +1,6 @@
 package com.kouki.googlebooktest.presentation.screens.Home
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -21,8 +22,15 @@ class HomeViewModel @Inject constructor(
     private val useCases: UseCases
 ): ViewModel() {
 
+    private val _searchQuery = mutableStateOf("")
+    val searchQuery = _searchQuery
+
     private val _searchedBooks = MutableStateFlow<PagingData<Items>>(PagingData.empty())
     val searchedBooks = _searchedBooks
+
+    fun updateSearchQuery(query: String){
+        _searchQuery.value = query
+    }
 
     fun searchBooks(query: String){
         viewModelScope.launch(Dispatchers.IO){

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">GoogleBookTest</string>
     <string name="app_logo">App Logo</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="close_icon">Close Icon</string>
 </resources>
