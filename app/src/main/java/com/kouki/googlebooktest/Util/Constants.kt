@@ -5,7 +5,7 @@ object Constants {
     const val BASE_URL = "https://www.googleapis.com/books/v1/"
     const val BOOK_DATABASE = "book_database"
 
-    const val ITEMS_PER_PAGE = 3
+    const val ITEMS_PER_PAGE = 10
     const val API_KEY = "AIzaSyCUU04OxHlh7XJ9fKh4ur1iqJCm8qI7D0w"
 
 
