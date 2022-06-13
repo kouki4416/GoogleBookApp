@@ -1,6 +1,7 @@
 package com.kouki.googlebooktest.data.repository
 
 import androidx.paging.PagingData
+import com.kouki.googlebooktest.domain.model.BookDetail
 import com.kouki.googlebooktest.domain.model.Items
 import com.kouki.googlebooktest.domain.repository.RemoteDataSource
 import kotlinx.coroutines.flow.Flow
@@ -11,5 +12,8 @@ class GoogleBookRepository @Inject constructor(
 ) {
     fun searchBooks(query: String): Flow<PagingData<Items>>{
         return remote.searchBooks(query)
+    }
+    suspend fun getBook(id: String): BookDetail? {
+        return remote.getBook(id)
     }
 }

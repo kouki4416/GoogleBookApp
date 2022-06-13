@@ -1,6 +1,7 @@
 package com.kouki.googlebooktest.presentation.common
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,6 +27,7 @@ import com.kouki.googlebooktest.R
 import com.kouki.googlebooktest.domain.model.ImageLinks
 import com.kouki.googlebooktest.domain.model.Items
 import com.kouki.googlebooktest.domain.model.VolumeInfo
+import com.kouki.googlebooktest.navigation.Screen
 import com.kouki.googlebooktest.ui.theme.BOOK_ITEM_HEIGHT
 import com.kouki.googlebooktest.ui.theme.LARGE_PADDING
 import com.kouki.googlebooktest.ui.theme.MEDIUM_PADDING
@@ -41,8 +43,9 @@ fun ListContent(
         itemsIndexed(
             items = items
         ) { _, item ->
+            val id = item?.id
             item?.volumeInfo?.let {
-                BookItem(volumeInfo = it, navController = navController)
+                BookItem(volumeInfo = it, bookId = id, navController = navController)
             }
         }
     }
@@ -62,13 +65,18 @@ fun ListContent(
 @Composable
 fun BookItem(
     volumeInfo: VolumeInfo,
-    navController: NavHostController?
+    bookId: String?,
+    navController: NavHostController
 ) {
 
     // create each post UI
     Box(
         modifier = Modifier
-            .height(BOOK_ITEM_HEIGHT),
+            .height(BOOK_ITEM_HEIGHT)
+            .clickable {
+                navController.navigate(Screen.Detail.passBookId(bookId!!))
+            }
+        ,
         contentAlignment = Alignment.BottomStart
     ) {
         Surface(
@@ -134,5 +142,5 @@ fun BookItemPreview() {
         )
     )
 
-    BookItem(volumeInfo = volumeInfo, navController = null)
+    //BookItem(volumeInfo = volumeInfo, navController = null)
 }

@@ -1,6 +1,7 @@
 package com.kouki.googlebooktest.di
 
 import com.kouki.googlebooktest.data.repository.GoogleBookRepository
+import com.kouki.googlebooktest.domain.use_cases.GetBookUseCase
 import com.kouki.googlebooktest.domain.use_cases.SearchBooksUseCase
 import com.kouki.googlebooktest.domain.use_cases.UseCases
 import dagger.Module
@@ -17,7 +18,8 @@ object RepositoryModule {
     @Singleton
     fun provideUseCases(googleBookRepository: GoogleBookRepository): UseCases{
         return UseCases(
-            searchBooksUseCase = SearchBooksUseCase(googleBookRepository)
+            searchBooksUseCase = SearchBooksUseCase(googleBookRepository),
+            getBookUseCase = GetBookUseCase(googleBookRepository)
         )
     }
 }

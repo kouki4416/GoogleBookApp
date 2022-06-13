@@ -156,14 +156,23 @@ data class ReadingModes(
 @Parcelize
 data class ImageLinks(
 
+	@field:SerializedName("small")
+	val small: String? = null,
+
 	@field:SerializedName("thumbnail")
 	val thumbnail: String? = null,
+
+	@field:SerializedName("large")
+	val large: String? = null,
+
+	@field:SerializedName("extraLarge")
+	val extraLarge: String? = null,
 
 	@field:SerializedName("smallThumbnail")
 	val smallThumbnail: String? = null,
 
-	@field:SerializedName("large")
-	val large: String? = null
+	@field:SerializedName("medium")
+	val medium: String? = null
 ) : Parcelable
 
 @Parcelize
