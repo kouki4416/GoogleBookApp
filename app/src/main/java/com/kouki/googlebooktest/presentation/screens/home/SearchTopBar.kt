@@ -1,4 +1,4 @@
-package com.kouki.googlebooktest.presentation.screens.Home
+package com.kouki.googlebooktest.presentation.screens.home
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

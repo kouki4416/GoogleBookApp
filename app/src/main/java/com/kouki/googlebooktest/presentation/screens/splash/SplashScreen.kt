@@ -55,7 +55,7 @@ fun SplashScreen(
             )
         }.await()
         navController.popBackStack()
-        navController.navigate(Screen.Home.route)
+        navController.navigate(Screen.Top.route)
     }
 
     Splash(degrees = degrees.value, size = size.value)
