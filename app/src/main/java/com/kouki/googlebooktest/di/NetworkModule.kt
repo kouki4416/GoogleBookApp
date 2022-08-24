@@ -3,7 +3,6 @@ package com.kouki.googlebooktest.di
 import androidx.paging.ExperimentalPagingApi
 import com.kouki.googlebooktest.Util.Constants.BASE_URL
 import com.kouki.googlebooktest.data.remote.GoogleBookApi
-import com.kouki.googlebooktest.data.repository.GoogleBookRepository
 import com.kouki.googlebooktest.data.repository.RemoteDataSourceImpl
 import com.kouki.googlebooktest.domain.repository.RemoteDataSource
 import dagger.Module
@@ -51,8 +50,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRemoteDataSource(
-        googleBookApi:GoogleBookApi
-    ): RemoteDataSource{
+        googleBookApi: GoogleBookApi
+    ): RemoteDataSource {
         return RemoteDataSourceImpl(
             googleBookApi
         )

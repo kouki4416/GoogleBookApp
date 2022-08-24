@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.annotation.ExperimentalCoilApi
+import com.kouki.googlebooktest.presentation.common.BottomNavigationBar
 import com.kouki.googlebooktest.presentation.common.ListContent
 
 @ExperimentalCoilApi
@@ -31,6 +32,9 @@ fun HomeScreen(
                 },
                 onCloseClicked = {}
             )
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
         }
     ) {
         ListContent(items, navController)

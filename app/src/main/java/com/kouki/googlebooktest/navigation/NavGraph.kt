@@ -14,7 +14,6 @@ import com.kouki.googlebooktest.presentation.screens.bookshelf.BookshelfScreen
 import com.kouki.googlebooktest.presentation.screens.home.HomeScreen
 import com.kouki.googlebooktest.presentation.screens.mypage.MyPageScreen
 import com.kouki.googlebooktest.presentation.screens.ranking.RankingScreen
-import com.kouki.googlebooktest.presentation.screens.top.TopScreen
 import com.kouki.googlebooktest.presentation.screens.splash.SplashScreen
 import com.kouki.googlebooktest.presentation.screens.store.StoreScreen
 
@@ -40,11 +39,6 @@ fun SetupNavGraph(navController: NavHostController) {
             })
         ){
             DetailScreen(navController = navController)
-        }
-        composable(
-            route = Screen.Top.route
-        ){
-            TopScreen(navController = navController)
         }
         composable(
             route = Screen.Store.route

@@ -1,27 +1,27 @@
 package com.kouki.googlebooktest.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.input.key.Key.Companion.Home
 import com.kouki.googlebooktest.R
 
-sealed class Screen(val route: String) {
+sealed class Screen(val route: String, val screenName: String) {
     val icon = R.drawable.ic_icons8_google_books
-    object Splash: Screen("splash_screen")
-    object Home: Screen("home_screen")
-    object Detail: Screen("detail_screen/{bookId}"){
-        fun passBookId(bookId: String): String{
+
+    object Splash : Screen("splash_screen", "Splash")
+    object Detail : Screen("detail_screen/{bookId}", "Detail") {
+        fun passBookId(bookId: String): String {
             return "detail_screen/$bookId"
         }
     }
-    object Top: Screen("top_screen")
-    object Store: Screen("store_screen")
-    object Ranking: Screen("ranking_screen")
-    object MyPage: Screen("mypage_screen")
-    object Bookshelf: Screen("bookshelf_screen")
+
+    object Home : Screen("home_screen", "Home")
+    object Store : Screen("store_screen", "Store")
+    object Ranking : Screen("ranking_screen", "Ranking")
+    object MyPage : Screen("mypage_screen", "MyPage")
+    object Bookshelf : Screen("bookshelf_screen", "Bookshelf")
 
     companion object {
-        val bottomNavScreens = listOf(
-            Top,
+        val bottomNavigationScreens = listOf(
+            Home,
             Store,
             Ranking,
             MyPage,
