@@ -1,9 +1,15 @@
 package com.kouki.googlebooktest.presentation.common
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridScope
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
@@ -32,6 +38,7 @@ import com.kouki.googlebooktest.ui.theme.BOOK_ITEM_HEIGHT
 import com.kouki.googlebooktest.ui.theme.LARGE_PADDING
 import com.kouki.googlebooktest.ui.theme.MEDIUM_PADDING
 
+// 一列一つのリスト
 @Composable
 fun ListContent(
     items: LazyPagingItems<Items>,
@@ -51,16 +58,26 @@ fun ListContent(
     }
 }
 
-
-//@Composable
-// return t/f depending on if image is loading
-//fun handlePagingResults(
-//    items: LazyPagingItems<Items>
-//): Boolean{
-//    items.apply {
-//
-//    }
-//}
+// Gridバージョンのリスト
+// https://developer.android.com/jetpack/compose/lists
+// ページングと使う場合の参考 https://stackoverflow.com/questions/68445699/how-to-use-jetpack-compose-paging-with-lazyverticalgrid
+@Composable
+fun GridContent(
+    itemList: LazyPagingItems<Items>,
+    navController: NavHostController
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 128.dp),
+        contentPadding = PaddingValues(horizontal = 5.dp, vertical = 5.dp)
+    ) {
+        items(itemList.itemCount) { index ->
+            val item = itemList[index]
+            item?.volumeInfo?.let {
+                BookItem(volumeInfo = it, bookId = item.id , navController = navController)
+            }
+        }
+    }
+}
 
 @Composable
 fun BookItem(
@@ -112,7 +129,7 @@ fun BookItem(
                 Text(
                     text = volumeInfo.title ?: "",
                     color = Color.White,
-                    fontSize = MaterialTheme.typography.h5.fontSize,
+                    fontSize = MaterialTheme.typography.h6.fontSize,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis // three dots
@@ -120,7 +137,7 @@ fun BookItem(
                 Text(
                     text = volumeInfo.description ?: "",
                     color = Color.White.copy(alpha = ContentAlpha.medium),
-                    fontSize = MaterialTheme.typography.subtitle1.fontSize,
+                    fontSize = MaterialTheme.typography.subtitle2.fontSize,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis // three dots
                 )

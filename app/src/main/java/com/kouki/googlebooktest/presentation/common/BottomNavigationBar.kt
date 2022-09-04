@@ -24,7 +24,6 @@ fun BottomNavigationBar(navController: NavHostController) {
                 onClick = {
                     navController.navigate(screen.route){
                         // 同じ画面は一つまでしかスタックされない
-                        // TODO ここを消すともはや移動できなくなる
                         this.launchSingleTop = true
                         this.restoreState = true
                     }

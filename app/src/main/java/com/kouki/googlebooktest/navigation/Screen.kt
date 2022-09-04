@@ -12,6 +12,11 @@ sealed class Screen(val route: String, val screenName: String) {
             return "detail_screen/$bookId"
         }
     }
+    object Search : Screen("search_screen/{keyword}", "Search"){
+        fun passKeyword(keyword: String): String{
+            return "search_screen/$keyword"
+        }
+    }
 
     object Home : Screen("home_screen", "Home")
     object Store : Screen("store_screen", "Store")

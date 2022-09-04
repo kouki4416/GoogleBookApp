@@ -10,6 +10,7 @@ object Constants {
 
 
     const val DETAILS_ARGUMENT_KEY = "bookId"
+    const val SEARCH_ARGUMENT_KEY = "keyword"
 
 
 

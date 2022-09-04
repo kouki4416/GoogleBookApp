@@ -7,8 +7,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.annotation.ExperimentalCoilApi
+import com.kouki.googlebooktest.navigation.Screen
 import com.kouki.googlebooktest.presentation.common.BottomNavigationBar
-import com.kouki.googlebooktest.presentation.common.ListContent
+import com.kouki.googlebooktest.presentation.common.GridContent
 
 @ExperimentalCoilApi
 @Composable
@@ -28,16 +29,16 @@ fun HomeScreen(
                     homeViewModel.updateSearchQuery(query = it)
                 },
                 onSearchClicked = {
-                    homeViewModel.searchBooks(query = it)
+                    navController.navigate(Screen.Search.passKeyword(it))
                 },
-                onCloseClicked = {}
+                onCloseClicked = {},
             )
         },
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }
     ) {
-        ListContent(items, navController)
+        GridContent(items, navController)
     }
 }
 
